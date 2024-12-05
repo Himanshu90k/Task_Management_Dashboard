@@ -29,7 +29,8 @@ const taskSlice = createSlice({
         //add task
         builder
         .addCase(addTaskAsync.fulfilled, (state, action: PayloadAction<Task>) => {
-          state = [action.payload, ...state];
+          state.push(action.payload);
+          console.log(state, action.payload)
         }); 
 
         //delete task
@@ -47,7 +48,7 @@ const taskSlice = createSlice({
         //get tasks
         builder
         .addCase(getTasksAsync.fulfilled, (state, action: PayloadAction<TaskState>) => {
-          state = action.payload;
+          state.push(...action.payload);
         });
 
         //change status
@@ -58,7 +59,7 @@ const taskSlice = createSlice({
     },
 });
 
-const baseUrl = '';
+const baseUrl = 'http://localhost:5000/api';
 
 export const addTaskAsync = createAsyncThunk(
     "task/addTaskAsync",
